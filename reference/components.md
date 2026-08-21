@@ -28,8 +28,18 @@ Every section opens this way. A section without a mono kicker is not in this sty
 .section-head { margin-bottom: 52px; max-width: 720px; }
 ```
 
-The kicker sets in `--text-faint`. Exactly one kicker per page may set in `--accent`
-instead - use it on the section you most want read, and nowhere else.
+```css
+/* The kicker is terracotta. It is the largest single employer of --rust on a page
+   and the cheapest way to stop a build reading as monochrome-plus-blue. */
+.kicker, .section-label { color: var(--rust); }
+```
+
+**The two accents have jobs.** If a shell printed it, it is `--accent`; if a person
+wrote it, it is `--rust`. Slate takes prompts, the nav CTA, links, focus rings,
+technical chips and counts inside a terminal. Terracotta takes kickers, the hero
+eyebrow, stat units, list markers, the live marker on a timeline, hover states, and
+tags for work that is yours and ongoing. See SKILL.md section 1 for the table and the
+usage floor.
 
 ---
 
@@ -117,6 +127,8 @@ transcript must be true.
 }
 .term-dots { display: inline-flex; gap: 0.45rem; }
 .term-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--border-hi); }
+/* one warm lamp on the window chrome, so the panel is not wholly cool */
+.term-dots i:first-child { background: color-mix(in srgb, var(--rust) 70%, transparent); }
 .term-title {
   font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint);
   margin-inline: auto; padding-right: 3rem;
@@ -150,8 +162,8 @@ Notes that matter:
 - The whole panel is `role="img"` with a prose `aria-label` describing what the run
   did, and the body is `aria-hidden`. A screen reader gets the meaning without being
   read a table of ASCII.
-- Three dots, `--border-hi`, no traffic-light colours. In the atmospheric texture the
-  leftmost dot may take `--rust`.
+- Three dots, `--border-hi`, no traffic-light colours. The leftmost takes a
+  70%-strength `--rust`: the one warm mark inside an otherwise cool panel.
 
 ---
 
@@ -283,6 +295,11 @@ Tags and badges:
 .tag--rust { background: var(--pale-rust-bg); color: var(--rust); }
 ```
 
+The two tag colours are not decoration, they are a split: **`.tag--rust` for work that
+is yours and ongoing, plain `.tag` for past employment and things somebody else owns.**
+On a page with five cards that reads instantly and without a legend, which is the whole
+point of keeping a second accent.
+
 `border-radius: 9999px` is legal here and on the eyebrow pill and the terminal dots.
 Nowhere else.
 
@@ -298,8 +315,8 @@ Nowhere else.
     </tr>
   </thead>
   <tbody>
-    <tr><td>Runs on your own box</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
-    <tr><td>Decentralised serving network</td><td class="yes">✓</td><td class="col-us no">—</td><td class="yes">✓</td></tr>
+    <tr><td>Runs on your own box</td><td class="no">&ndash;</td><td class="col-us yes">✓</td><td class="no">&ndash;</td></tr>
+    <tr><td>Decentralised serving network</td><td class="yes">✓</td><td class="col-us no">&ndash;</td><td class="yes">✓</td></tr>
   </tbody>
 </table>
 ```
@@ -326,7 +343,7 @@ Nowhere else.
 
 The second row in the example is not an oversight. Ship at least one row your product
 loses, and put it above the fold of the table rather than last. `.no` is the only
-place `--text-faint` may carry meaning, and it is paired with a `—` glyph so the
+place `--text-faint` may carry meaning, and it is paired with a `&ndash;` glyph so the
 meaning does not rest on contrast alone.
 
 ---
@@ -352,7 +369,7 @@ meaning does not rest on contrast alone.
 .speed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .stat .n { font-family: var(--display); font-size: clamp(2.6rem, 5vw, 3.8rem);
            line-height: 1; letter-spacing: -0.02em; color: var(--text); }
-.stat .n span { color: var(--accent); }
+.stat .n span { color: var(--rust); }   /* number in ink, unit in terracotta */
 .stat .l { color: var(--text-muted); margin-top: 12px; font-size: 0.98rem; max-width: 30ch; }
 @media (max-width: 920px) { .speed-grid { grid-template-columns: 1fr; gap: 36px; } }
 ```
@@ -370,7 +387,7 @@ replaces something verbose.
 ```html
 <div class="section-head">
   <p class="kicker">The comparison</p>
-  <h2>Would you rather write and maintain this —</h2>
+  <h2>Would you rather write and maintain this?</h2>
 </div>
 <div class="diptych">
   <figure class="panel panel--before">
@@ -484,7 +501,7 @@ does not.
   <h2>What it does, and what it doesn't.</h2>
   <p class="section-lede">
     camp serves raw, indexed event history. A few things are deliberately out of
-    scope — call them out so you can plan around them.
+    scope. Call them out so you can plan around them.
   </p>
 </div>
 <div class="scope">
@@ -499,8 +516,8 @@ does not.
   <div class="scope-col">
     <p class="scope-label scope-label--out">Out of scope</p>
     <ul>
-      <li>Token balances — events, not state</li>
-      <li>USD prices — bring your own oracle</li>
+      <li>Token balances. Events, not state</li>
+      <li>USD prices: bring your own oracle</li>
       <li>Chains other than Arbitrum One</li>
     </ul>
   </div>
@@ -524,8 +541,10 @@ does not.
 .scope-col li { color: var(--text-muted); font-size: 0.97rem; padding-left: 1.2rem;
                 position: relative; line-height: 1.5; }
 .scope-col li::before {
+  /* Every list marker on the page is terracotta. Individually tiny, collectively
+     the thing that stops a long list of prose feeling like a plain document. */
   content: ""; position: absolute; left: 0; top: 0.62em;
-  width: 7px; height: 1px; background: currentColor; opacity: 0.5;
+  width: 7px; height: 1px; background: var(--rust); opacity: 0.75;
 }
 @media (max-width: 920px) { .scope { grid-template-columns: 1fr; } }
 ```

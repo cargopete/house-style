@@ -10,8 +10,9 @@ description: The cargopete house frontend style, extracted from nuthatch-indexer
 Five sentences. Everything below is enforcement.
 
 > **The palette is fixed and is not yours to redesign. The ground is warm dark,
-> never grey and never black. Monospace is the instrument label, not the code
-> font. The screenshot is a true transcript. Say plainly what it does not do.**
+> never grey and never black. Both accents get spent, not just the blue one.
+> Monospace is the instrument label, not the code font. The screenshot is a true
+> transcript. Say plainly what it does not do.**
 
 The mental image is a well-kept piece of field equipment photographed at dusk. It is
 dark because that is where it lives, not because dark mode is fashionable. Every
@@ -98,14 +99,32 @@ deep soft one, not a card lift.
 `--text-faint: #6e6a61`. Body text is never pure white; `#ffffff` on a warm dark
 ground glares and reads as a different design.
 
-**Accents.** Two, because the bird had two. `--accent: #8bb8dc` is the slate blue and
-carries links, prompts, kickers-that-shout, focus rings and the "us" column.
-`--rust: #cd8560` is the terracotta and is the second voice - a highlighted term, a
-secondary tag, a diagram edge. `--accent-ink: #cfe3f2` is for accent-coloured text
-sitting on an accent wash, where the accent itself would be too dim.
+**Accents.** Two, because the bird had two, and **both of them have a job.** This is
+the rule most often got wrong, including by me: it is easy to build a page that spends
+`--accent` on everything, uses `--rust` three times as a garnish, and comes out reading
+as warm-grey plus blue. That page has half a palette.
+
+> **If a shell printed it, it is slate. If a person wrote it, it is terracotta.**
+
+| | `--accent` `#8bb8dc` | `--rust` `#cd8560` |
+|---|---|---|
+| voice | the machine | the person |
+| carries | shell prompts, the nav CTA, links, focus rings, technical chips, counts inside a terminal, the "us" column | section kickers, the hero eyebrow, stat units and suffixes, list markers, the live marker on a timeline, hover states, tags for work that is yours and ongoing |
+| feel | cool, quiet, structural | warm, editorial, the thing a reader notices first |
+
+`--accent-ink: #cfe3f2` is for accent-coloured text sitting on an accent wash, where
+the accent itself would be too dim.
+
+**The floor.** Grep your finished stylesheet. If `var(--rust)` appears fewer than a
+dozen times, you have not built a page in this style; you have built a blue page on a
+warm ground. The nuthatch site uses it twenty-one times across its stylesheets and its
+author still thinks that is thin. Section kickers alone, which appear above every
+section on the page, should account for a good share of it.
 
 Never a third hue. Never a saturated red in the resting palette. Status is washed:
-`--ok: #86b592`, `--warn: #cdb06a`.
+`--ok: #86b592`, `--warn: #cdb06a`, and status colours are not a way to smuggle in a
+third accent - a green dot marking "the current one" is a marker, not a status, and
+belongs to `--rust`.
 
 **Washes.** The accents at 12% alpha, for tag backgrounds and the tinted table
 column. `--pale-blue-bg`, `--pale-rust-bg`, `--pale-green-bg`.
@@ -180,11 +199,20 @@ font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 font-size: 0.66rem to 0.78rem;   /* 11px to 13px */
 letter-spacing: 0.08em to 0.14em;
 text-transform: uppercase;
-color: var(--text-faint);        /* or var(--accent) for the loud one per section */
+color: var(--rust);              /* kickers and eyebrows: the human voice */
 ```
 
 A section that opens without a mono kicker above its heading is not in this style.
-That kicker is the equivalent of the engraved plate above a dial.
+That kicker is the equivalent of the engraved plate above a dial, and **it is
+terracotta.** Kickers are the single largest employer of `--rust` on a page and the
+cheapest way to make a build stop reading as monochrome. `--rust` measures 6.13:1 on
+`--bg` and clears AA at that size.
+
+Labels that are genuinely disposable - a terminal window title, a copy hint, a
+timestamp, an em-dash placeholder in a table - stay `--text-faint`.
+
+The nuthatch site still sets its section labels in `--text-faint`; it predates this
+rule and should be brought up to it. Do not copy it on this one point.
 
 Self-host both faces, subset to the glyphs actually used, `font-display: swap`. See
 section 7.
@@ -273,7 +301,7 @@ twelve-item "in scope" is the table-that-wins-every-row problem in a different h
 Follow it with a short paragraph on how to use the thing well and where to self-host.
 
 **The before/after diptych.** Two code panels side by side under a single heading that
-poses the question - redstart's *"Would you rather write and maintain this —"*. The
+poses the question - redstart's *"Would you rather write and maintain this"*. The
 "before" panel is muted, longer, and real code from the ecosystem being replaced; the
 "after" is shorter and syntax-highlighted with the accent doing the work. Line counts
 go in mono above each panel, because the whole argument is the ratio. Stacks at 920px
@@ -392,6 +420,8 @@ grammar, then the artefacts, then the copy, then measure.
 - Gradients in the flat texture. Any gradient on text, in either texture.
 - `border-radius: 9999px` on anything larger than a tag or a dot.
 - Emoji, hype vocabulary, exclamation marks, placeholder names, invented transcripts.
+- **Em dashes.** Not in the copy, not in the comments, not in commit messages. Use a
+  full stop, a colon, a plain hyphen, or recast the sentence.
 - Stock photography, picsum, icon-library imports, third-party font CDNs.
 - Scroll listeners for reveal animation, and any animation that survives
   `prefers-reduced-motion: reduce`.
@@ -402,6 +432,8 @@ grammar, then the artefacts, then the copy, then measure.
 ## 12. Before you call it done
 
 - [ ] Every colour in the built CSS appears in `reference/tokens.css`.
+- [ ] `grep -c 'var(--rust)'` on the stylesheet returns twelve or more.
+- [ ] `grep -c '—'` across the source returns zero.
 - [ ] `python3 tools/contrast.py` passes.
 - [ ] `--text-faint` carries nothing load-bearing.
 - [ ] Every section opens with a mono kicker.

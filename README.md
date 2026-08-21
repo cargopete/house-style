@@ -26,6 +26,11 @@ is subject, structure, illustration and texture. Not colour.
 That is the entire point of a house style. Three of the four exemplars above disagree
 with each other about colour, which is precisely why the mandate exists now.
 
+The palette is a **pair**, and both halves have a job: if a shell printed it, it is the
+slate blue; if a person wrote it, it is the terracotta. Kickers, eyebrows, stat units
+and list markers are the terracotta half, and a page that skips them comes out reading
+as blue on warm grey. There is a grep for it in the checklist.
+
 ## Install
 
 ```bash

@@ -49,10 +49,11 @@
   .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
   .eyebrow { display: inline-flex; align-items: center; gap: 9px;
              font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em;
-             text-transform: uppercase; color: var(--accent);
-             border: 1px solid var(--border); border-radius: 100px;
+             text-transform: uppercase; color: var(--rust);
+             border: 1px solid color-mix(in srgb, var(--rust) 30%, transparent);
+             border-radius: 100px;
              padding: 6px 13px; margin-bottom: 26px; }
-  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); }
   .lede { font-size: 1.15rem; color: var(--text-muted); max-width: 30ch; margin: 1.4rem 0 2rem; }
   .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
   .ghost { font-size: 15px; color: var(--text-muted); padding: 13px 6px; }
@@ -69,6 +70,7 @@
               border-bottom: 1px solid var(--border); }
   .term-dots { display: inline-flex; gap: 0.45rem; }
   .term-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--border-hi); }
+  .term-dots i:first-child { background: color-mix(in srgb, var(--rust) 70%, transparent); }
   .term-title { font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint);
                 margin-inline: auto; padding-right: 3rem; }
   .term-body { font-family: var(--mono); font-size: clamp(0.72rem, 1.9vw, 0.92rem);
@@ -98,14 +100,15 @@
   .speed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
   .stat .n { font-family: var(--display); font-size: clamp(2.6rem, 5vw, 3.8rem);
              line-height: 1; letter-spacing: -0.02em; color: var(--text); }
-  .stat .n span { color: var(--accent); }
+  .stat .n span { color: var(--rust); }
   .stat .l { color: var(--text-muted); margin-top: 12px; font-size: 0.98rem; max-width: 30ch; }
 
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
   .cell { background: var(--bg-elev); border: 1px solid var(--border);
           border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden;
           transition: border-color 0.22s var(--ease), transform 0.22s var(--ease); }
-  .cell:hover { border-color: var(--border-hi); transform: translateY(-3px); }
+  .cell:hover { border-color: color-mix(in srgb, var(--rust) 40%, var(--border-hi));
+                transform: translateY(-3px); }
   .cell h3 { font-family: var(--sans); font-weight: 700; font-size: 1.16rem; margin: 0 0 9px; }
   .cell p { color: var(--text-muted); font-size: 0.97rem; margin: 0; }
   .cell .ic { width: 30px; height: 30px; margin-bottom: 18px; color: var(--accent); }
@@ -115,6 +118,7 @@
                display: flex; flex-direction: column; justify-content: space-between; }
   .c-feature .big-num { font-family: var(--display); font-size: 3.4rem; line-height: 1;
                         letter-spacing: -0.02em; color: var(--accent); }
+  .tag--rust { background: var(--pale-rust-bg); color: var(--rust); }
   .tag { display: inline-block; font-family: var(--mono); font-size: 0.66rem; font-weight: 500;
          letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.55rem;
          border-radius: 9999px; background: var(--pale-blue-bg); color: var(--accent-ink);
@@ -152,7 +156,7 @@
   .scope-col li { color: var(--text-muted); font-size: 0.97rem; padding-left: 1.2rem;
                   position: relative; line-height: 1.5; }
   .scope-col li::before { content: ""; position: absolute; left: 0; top: 0.62em;
-                          width: 7px; height: 1px; background: currentColor; opacity: 0.5; }
+                          width: 7px; height: 1px; background: var(--rust); opacity: 0.75; }
 
   .diptych { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
   .panel { margin: 0; background: var(--bg-code); border: 1px solid var(--border);
@@ -162,7 +166,7 @@
                       font-family: var(--mono); font-size: 0.7rem;
                       letter-spacing: 0.12em; text-transform: uppercase; }
   .panel--before figcaption .mono-label { color: var(--text-faint); }
-  .panel--after figcaption .mono-label { color: var(--accent); }
+  .panel--after figcaption .mono-label { color: var(--ok); }
   .panel figcaption .lines { color: var(--text-faint); letter-spacing: 0.06em; }
   .panel--before pre { opacity: 0.72; }
   .panel pre { margin: 0; padding: 1rem 1.2rem; overflow-x: auto;
@@ -178,16 +182,23 @@
   .closer { text-align: center; }
   .closer h2 { max-width: 16ch; margin-inline: auto; }
   .closer .section-lede { margin-inline: auto; text-align: center; }
+  .closer a.btn-primary:hover { background: var(--rust); }
   footer { border-top: 1px solid var(--border); padding-block: 40px; }
   .foot { display: flex; align-items: center; justify-content: space-between;
           gap: 20px; flex-wrap: wrap; color: var(--text-faint); font-size: 14px; }
-  .foot .license { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.06em; }
+  .foot .license { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.06em;
+                   color: var(--rust); }
 
   .theme-toggle { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
                   text-transform: uppercase; color: var(--text-faint); background: none;
                   border: 1px solid var(--border); border-radius: var(--radius-sm);
                   padding: 6px 10px; cursor: pointer; }
   .theme-toggle:hover { border-color: var(--border-hi); color: var(--text); }
+
+  /* The two accents have jobs: if a shell printed it, slate; if a person wrote
+     it, terracotta. Kickers, eyebrows, stat units and list markers are the
+     person's half, and they are what stop the page reading as blue-on-grey. */
+  .kicker { color: var(--rust); }
 
   @media (max-width: 920px) {
     .nav-links { display: none; }
@@ -293,7 +304,7 @@
       <div class="bento">
         <div class="cell c-feature">
           <div>
-            <span class="tag">The hero artefact</span>
+            <span class="tag tag--rust">The hero artefact</span>
             <h3>A terminal showing a true transcript</h3>
             <p>Real commands, real elapsed times, real addresses. A reader who checks
                one number and finds it true will believe the rest of the page.</p>
@@ -348,10 +359,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Warm ground, no cool grey</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
-          <tr><td>Palette fixed across sites</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
-          <tr><td>Works on any brand's colours</td><td class="yes">✓</td><td class="col-us no">—</td><td class="yes">✓</td></tr>
-          <tr><td>Zero third-party requests</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
+          <tr><td>Warm ground, no cool grey</td><td class="no">&ndash;</td><td class="col-us yes">✓</td><td class="no">&ndash;</td></tr>
+          <tr><td>Palette fixed across sites</td><td class="no">&ndash;</td><td class="col-us yes">✓</td><td class="no">&ndash;</td></tr>
+          <tr><td>Works on any brand's colours</td><td class="yes">✓</td><td class="col-us no">&ndash;</td><td class="yes">✓</td></tr>
+          <tr><td>Zero third-party requests</td><td class="no">&ndash;</td><td class="col-us yes">✓</td><td class="no">&ndash;</td></tr>
         </tbody>
       </table>
     </div>
@@ -364,7 +375,7 @@
         <h2>What it does, and what it doesn't.</h2>
         <p class="section-lede">
           This is a house style, not a design system. A few things are deliberately out
-          of scope — call them out so you can plan around them.
+          of scope. Call them out so you can plan around them.
         </p>
       </div>
       <div class="scope">
@@ -381,7 +392,7 @@
         <div class="scope-col">
           <p class="scope-label scope-label--out">Out of scope</p>
           <ul>
-            <li>A component library — this ships CSS to copy, not a package</li>
+            <li>A component library. This ships CSS to copy, not a package</li>
             <li>Client work where the brand hue is contractual</li>
             <li>Consumer apps, marketing microsites, anything playful</li>
             <li>Charts and data visualisation beyond a stat band</li>
@@ -396,7 +407,7 @@
     <div class="wrap">
       <div class="section-head">
         <p class="kicker">The comparison</p>
-        <h2>Would you rather maintain this —</h2>
+        <h2>Would you rather maintain this?</h2>
       </div>
       <div class="diptych">
         <figure class="panel panel--before">
