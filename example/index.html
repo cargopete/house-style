@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>cargopete style - reference render</title>
+<meta name="description" content="Every artefact in the cargopete style, on the mandated palette, in one page." />
+<link rel="stylesheet" href="../reference/tokens.css" />
+<style>
+  /* Self-hosted, subset, no CDN - the rule the whole style rests on.
+     The files are not committed: see example/fonts/README.md for the recipe.
+     Without them the page falls back to the system stack in tokens.css and
+     still demonstrates every component. */
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('fonts/space-grotesk.woff2') format('woff2');
+    font-weight: 300 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('fonts/jetbrains-mono.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+</style>
+<style>
+  /* Only what tokens.css does not already carry: the components from
+     reference/components.md, verbatim. No colour is defined here. */
+
+  header {
+    position: sticky; top: 0; z-index: 30; height: 72px;
+    display: flex; align-items: center;
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 66%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; gap: 28px; width: 100%;
+         max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 700;
+           font-size: 19px; letter-spacing: -0.01em; color: var(--text); }
+  .brand svg { width: 30px; height: 28px; color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; margin-left: auto; font-size: 15px; color: var(--text-muted); }
+  .nav-links a { color: inherit; transition: color 0.18s var(--ease); }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav-cta { font-family: var(--mono); font-size: 13.5px; font-weight: 500;
+             color: var(--bg); background: var(--accent); padding: 9px 15px;
+             border-radius: 9px; transition: transform 0.18s var(--ease); }
+  .nav-cta:hover { transform: translateY(-1px); text-decoration: none; }
+
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 9px;
+             font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em;
+             text-transform: uppercase; color: var(--accent);
+             border: 1px solid var(--border); border-radius: 100px;
+             padding: 6px 13px; margin-bottom: 26px; }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .lede { font-size: 1.15rem; color: var(--text-muted); max-width: 30ch; margin: 1.4rem 0 2rem; }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .ghost { font-size: 15px; color: var(--text-muted); padding: 13px 6px; }
+  .ghost:hover { color: var(--text); text-decoration: none; }
+  .ghost .arrow { color: var(--accent); }
+
+  .section-lede { color: var(--text-muted); max-width: 56ch; font-size: 1.05rem; margin-top: 1rem; }
+  .section-head { margin-bottom: 52px; max-width: 720px; }
+
+  .term { background: var(--bg-code); border: 1px solid var(--border);
+          border-radius: 12px; overflow: hidden; }
+  .term-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.9rem;
+              background: color-mix(in srgb, var(--text) 5%, var(--bg-code));
+              border-bottom: 1px solid var(--border); }
+  .term-dots { display: inline-flex; gap: 0.45rem; }
+  .term-dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--border-hi); }
+  .term-title { font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint);
+                margin-inline: auto; padding-right: 3rem; }
+  .term-body { font-family: var(--mono); font-size: clamp(0.72rem, 1.9vw, 0.92rem);
+               line-height: 1.85; padding: 1.1rem 1.2rem 1.4rem; color: var(--text); overflow-x: auto; }
+  .tline { display: flex; gap: 0.6rem; white-space: pre; min-height: 1.85em; }
+  .tline--out { padding-left: 1.2rem; }
+  .tline-pre { flex-shrink: 0; font-weight: 500; }
+  .pre-cmd { color: var(--accent); }
+  .pre-ok, .pre-serve { color: var(--ok); }
+  .tline[data-serve] .tline-body { color: var(--text-muted); }
+  .tline[data-serve] .pre-serve { animation: pulse 2.4s var(--ease) infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+  .install { display: inline-flex; align-items: center; gap: 14px;
+             font-family: var(--mono); font-size: 15px;
+             background: var(--bg-elev); border: 1px solid var(--border);
+             border-radius: var(--radius-sm); padding: 13px 16px; color: var(--text);
+             cursor: pointer; transition: border-color 0.18s var(--ease), background 0.18s var(--ease); }
+  .install:hover { border-color: var(--accent); background: var(--bg-inset); }
+  .install .prompt { color: var(--accent); }
+  .install .copy { color: var(--text-faint); font-size: 12px;
+                   border-left: 1px solid var(--border); padding-left: 12px;
+                   transition: color 0.18s var(--ease); }
+  .install.copied .copy { color: var(--accent); }
+
+  .speed { background: var(--bg-elev); border-block: 1px solid var(--border); }
+  .speed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .stat .n { font-family: var(--display); font-size: clamp(2.6rem, 5vw, 3.8rem);
+             line-height: 1; letter-spacing: -0.02em; color: var(--text); }
+  .stat .n span { color: var(--accent); }
+  .stat .l { color: var(--text-muted); margin-top: 12px; font-size: 0.98rem; max-width: 30ch; }
+
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .cell { background: var(--bg-elev); border: 1px solid var(--border);
+          border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden;
+          transition: border-color 0.22s var(--ease), transform 0.22s var(--ease); }
+  .cell:hover { border-color: var(--border-hi); transform: translateY(-3px); }
+  .cell h3 { font-family: var(--sans); font-weight: 700; font-size: 1.16rem; margin: 0 0 9px; }
+  .cell p { color: var(--text-muted); font-size: 0.97rem; margin: 0; }
+  .cell .ic { width: 30px; height: 30px; margin-bottom: 18px; color: var(--accent); }
+  .c-third { grid-column: span 2; }
+  .c-mid { grid-column: span 3; }
+  .c-feature { grid-column: span 4; min-height: 230px;
+               display: flex; flex-direction: column; justify-content: space-between; }
+  .c-feature .big-num { font-family: var(--display); font-size: 3.4rem; line-height: 1;
+                        letter-spacing: -0.02em; color: var(--accent); }
+  .tag { display: inline-block; font-family: var(--mono); font-size: 0.66rem; font-weight: 500;
+         letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.55rem;
+         border-radius: 9999px; background: var(--pale-blue-bg); color: var(--accent-ink);
+         margin-bottom: 14px; }
+  .flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px;
+          font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+  .flow .chip { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 7px 11px; }
+  .flow .chip--hot { color: var(--accent); border-color: var(--border-hi); }
+  .flow .arrow { color: var(--rust); }
+
+  .matrix { width: 100%; border-collapse: separate; border-spacing: 0; }
+  .matrix thead th { font-family: var(--sans); font-weight: 500; font-size: 0.95rem;
+                     color: var(--text-muted); text-align: center; padding: 0 0 18px; }
+  .matrix thead th:first-child { text-align: left; }
+  .matrix thead th.us { color: var(--accent); font-weight: 700; }
+  .matrix .head-divider th { border-bottom: 1px solid var(--border); }
+  .matrix tbody td { padding: 16px 12px; text-align: center; font-size: 0.95rem; color: var(--text-muted); }
+  .matrix tbody td:first-child { text-align: left; color: var(--text); font-weight: 500; }
+  .matrix tbody tr:nth-child(odd) td { background: color-mix(in srgb, var(--text) 2%, transparent); }
+  .matrix tbody tr td:first-child { border-radius: 10px 0 0 10px; }
+  .matrix tbody tr td:last-child { border-radius: 0 10px 10px 0; }
+  .matrix .col-us { background: var(--pale-blue-bg) !important; color: var(--text); }
+  .matrix .col-us.yes { color: var(--accent); }   /* the tint must not steal the accent tick */
+  .yes { color: var(--accent); font-size: 1.1rem; }
+  .no { color: var(--text-faint); }
+
+  .scope { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .scope-col { background: var(--bg-elev); border: 1px solid var(--border);
+               border-radius: var(--radius); padding: 28px; }
+  .scope-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+                 letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.1rem; }
+  .scope-label--in { color: var(--ok); }
+  .scope-label--out { color: var(--rust); }
+  .scope-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .scope-col li { color: var(--text-muted); font-size: 0.97rem; padding-left: 1.2rem;
+                  position: relative; line-height: 1.5; }
+  .scope-col li::before { content: ""; position: absolute; left: 0; top: 0.62em;
+                          width: 7px; height: 1px; background: currentColor; opacity: 0.5; }
+
+  .diptych { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { margin: 0; background: var(--bg-code); border: 1px solid var(--border);
+           border-radius: var(--radius); overflow: hidden; }
+  .panel figcaption { display: flex; align-items: baseline; justify-content: space-between;
+                      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
+                      font-family: var(--mono); font-size: 0.7rem;
+                      letter-spacing: 0.12em; text-transform: uppercase; }
+  .panel--before figcaption .mono-label { color: var(--text-faint); }
+  .panel--after figcaption .mono-label { color: var(--accent); }
+  .panel figcaption .lines { color: var(--text-faint); letter-spacing: 0.06em; }
+  .panel--before pre { opacity: 0.72; }
+  .panel pre { margin: 0; padding: 1rem 1.2rem; overflow-x: auto;
+               font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; color: var(--text-muted); }
+
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font: inherit;
+         font-weight: 500; font-size: 0.95rem; padding: 0.62rem 1.1rem;
+         border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer;
+         text-decoration: none; transition: transform 0.12s var(--ease); }
+  .btn-primary { background: var(--text); color: var(--bg); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .closer { text-align: center; }
+  .closer h2 { max-width: 16ch; margin-inline: auto; }
+  .closer .section-lede { margin-inline: auto; text-align: center; }
+  footer { border-top: 1px solid var(--border); padding-block: 40px; }
+  .foot { display: flex; align-items: center; justify-content: space-between;
+          gap: 20px; flex-wrap: wrap; color: var(--text-faint); font-size: 14px; }
+  .foot .license { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.06em; }
+
+  .theme-toggle { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+                  text-transform: uppercase; color: var(--text-faint); background: none;
+                  border: 1px solid var(--border); border-radius: var(--radius-sm);
+                  padding: 6px 10px; cursor: pointer; }
+  .theme-toggle:hover { border-color: var(--border-hi); color: var(--text); }
+
+  @media (max-width: 920px) {
+    .nav-links { display: none; }
+    .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .speed-grid { grid-template-columns: 1fr; gap: 36px; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .c-third, .c-mid, .c-feature { grid-column: span 2; }
+    .c-feature { min-height: auto; }
+    .scope, .diptych { grid-template-columns: 1fr; }
+    .matrix { font-size: 0.86rem; }
+  }
+  @media (max-width: 540px) {
+    .bento { grid-template-columns: 1fr; }
+    .c-third, .c-mid, .c-feature { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 32 30">
+    <path fill="currentColor" d="M4 6c6-1 11 1 15 5 3 3 5 7 9 8-2 3-6 4-10 3-5-1-9-5-11-10-1-2-2-4-3-6z"/>
+    <circle cx="9" cy="9" r="1.4" fill="var(--bg)"/>
+  </symbol>
+</svg>
+
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top"><svg aria-hidden="true"><use href="#mark"/></svg>reference</a>
+    <div class="nav-links">
+      <a href="#proof">Proof</a>
+      <a href="#features">Features</a>
+      <a href="#compare">Compare</a>
+      <a href="#scope">Scope</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark theme">theme</button>
+    <a class="nav-cta" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rise rise-1"><span class="dot"></span>Mandated palette · one accent pair</span>
+        <h1 class="rise rise-2">Every artefact.<br>One page.</h1>
+        <p class="lede rise rise-2">
+          The seven components of the cargopete style, on the mandated palette, so you
+          can see what you are aiming at before you start moving tokens.
+        </p>
+        <div class="cta-row rise rise-3">
+          <button class="install" data-copy="python3 tools/contrast.py" aria-label="Copy the validator command">
+            <span><span class="prompt">$</span> python3 tools/contrast.py</span>
+            <span class="copy">copy</span>
+          </button>
+          <a class="ghost" href="../SKILL.md">Read the doctrine <span class="arrow">&rsaquo;</span></a>
+        </div>
+      </div>
+
+      <div class="rise rise-3">
+        <div class="term" role="img" aria-label="Terminal showing the palette validator run, reporting that all required tokens clear their targets on every surface.">
+          <div class="term-bar">
+            <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="term-title">cargopete-style - zsh - 92×14</span>
+          </div>
+          <div class="term-body" aria-hidden="true">
+            <div class="tline"><span class="tline-pre pre-cmd">$</span><span class="tline-body">python3 tools/contrast.py</span></div>
+            <div class="tline tline--out"><span class="tline-pre pre-ok">✓</span><span class="tline-body">--text        14.92 on --bg   AAA</span></div>
+            <div class="tline tline--out"><span class="tline-pre pre-ok">✓</span><span class="tline-body">--accent       8.60 on --bg   AAA</span></div>
+            <div class="tline tline--out"><span class="tline-pre pre-ok">✓</span><span class="tline-body">--rust         6.13 on --bg   AA</span></div>
+            <div class="tline tline--out"><span class="tline-pre pre-ok">✓</span><span class="tline-body">--text-faint   3.36 on --bg   DECORATIVE</span></div>
+            <div class="tline tline--out" data-serve="1"><span class="tline-pre pre-serve">●</span><span class="tline-body">16 tokens checked, 8 surfaces, exit 0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="speed" id="proof">
+    <div class="wrap speed-grid">
+      <div class="stat"><div class="n">16<span> tokens</span></div>
+        <div class="l">The entire mandated palette. Nothing else may appear in the built CSS.</div></div>
+      <div class="stat"><div class="n">2<span> accents</span></div>
+        <div class="l">Slate blue and terracotta, off a nuthatch. Never a third.</div></div>
+      <div class="stat"><div class="n">46<span>KB</span></div>
+        <div class="l">Measured transfer of the nuthatch landing page, fonts included.</div></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">The artefacts</p>
+        <h2>Seven components, and the discipline to stop there.</h2>
+        <p class="section-lede">
+          Each one earns its place by doing a job the plain page cannot. Nothing on
+          this list is decoration, which is why the list is short.
+        </p>
+      </div>
+      <div class="bento">
+        <div class="cell c-feature">
+          <div>
+            <span class="tag">The hero artefact</span>
+            <h3>A terminal showing a true transcript</h3>
+            <p>Real commands, real elapsed times, real addresses. A reader who checks
+               one number and finds it true will believe the rest of the page.</p>
+          </div>
+          <div class="flow">
+            <span class="chip">static DOM</span><span class="arrow">+</span>
+            <span class="chip">aria-label</span><span class="arrow">&rarr;</span>
+            <span class="chip chip--hot">works with JS off</span>
+          </div>
+        </div>
+        <div class="cell c-third">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <h3>Mono instrument labels</h3>
+          <p>Every kicker, tag and unit set in monospace, uppercase, tracked. The tier
+             that identifies the style.</p>
+        </div>
+        <div class="cell c-mid">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Hairlines, never shadows</h3>
+          <p>Elevation is a surface tier plus a 1px border at nine percent. The one
+             permitted shadow sits under a hero terminal in atmospheric texture.</p>
+        </div>
+        <div class="cell c-mid">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7"/></svg>
+          <h3>Zero third-party requests</h3>
+          <p>Self-hosted subset fonts, inlined CSS, no analytics. The site practises
+             whatever the product is selling.</p>
+        </div>
+        <div class="cell c-third">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3v6a6 6 0 0012 0V3M6 21v-6a6 6 0 0112 0v6"/></svg>
+          <h3>One entrance, one pulse</h3>
+          <p>The whole motion budget, and all of it switches off under reduced motion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Where it sits</p>
+        <h2>The honest comparison.</h2>
+        <p class="section-lede">
+          A table this style wins outright is read, correctly, as a lie. Row three is
+          not an oversight.
+        </p>
+      </div>
+      <table class="matrix">
+        <thead>
+          <tr class="head-divider">
+            <th></th><th>Generic dark SaaS</th><th class="us">cargopete style</th><th>Upstream minimalist-ui</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Warm ground, no cool grey</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
+          <tr><td>Palette fixed across sites</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
+          <tr><td>Works on any brand's colours</td><td class="yes">✓</td><td class="col-us no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Zero third-party requests</td><td class="no">—</td><td class="col-us yes">✓</td><td class="no">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="scope">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Use it well</p>
+        <h2>What it does, and what it doesn't.</h2>
+        <p class="section-lede">
+          This is a house style, not a design system. A few things are deliberately out
+          of scope — call them out so you can plan around them.
+        </p>
+      </div>
+      <div class="scope">
+        <div class="scope-col">
+          <p class="scope-label scope-label--in">In scope</p>
+          <ul>
+            <li>Landing pages, docs sites, dashboards, developer tools</li>
+            <li>One fixed palette, validated, in both themes</li>
+            <li>Seven components with markup and CSS</li>
+            <li>An ordered procedure for revamping an existing site</li>
+            <li>Copy rules, with a banned vocabulary</li>
+          </ul>
+        </div>
+        <div class="scope-col">
+          <p class="scope-label scope-label--out">Out of scope</p>
+          <ul>
+            <li>A component library — this ships CSS to copy, not a package</li>
+            <li>Client work where the brand hue is contractual</li>
+            <li>Consumer apps, marketing microsites, anything playful</li>
+            <li>Charts and data visualisation beyond a stat band</li>
+            <li>A light-theme atmospheric texture, which has no honest inversion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">The comparison</p>
+        <h2>Would you rather maintain this —</h2>
+      </div>
+      <div class="diptych">
+        <figure class="panel panel--before">
+          <figcaption><span class="mono-label">Before</span><span class="lines">14 lines, 3 hues</span></figcaption>
+          <pre>:root {
+  --brand: #3b82f6;
+  --brand-2: #8b5cf6;
+  --danger: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-900: #111827;
+  --card-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px …;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}</pre>
+        </figure>
+        <figure class="panel panel--after">
+          <figcaption><span class="mono-label">After</span><span class="lines">7 lines, 2 hues</span></figcaption>
+          <pre>:root {
+  --bg: #171614;
+  --bg-elev: #201f1c;
+  --border: rgba(255,255,255,0.09);
+  --text: #ece9e3;
+  --accent: #8bb8dc;
+  --rust: #cd8560;
+}</pre>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer" id="install">
+    <div class="wrap">
+      <h2>One palette. Seven parts. No decisions left.</h2>
+      <p class="section-lede">
+        Link the skill into <code>~/.claude/skills</code> and ask for the house style.
+      </p>
+      <div class="cta-row" style="justify-content:center;margin-top:2rem">
+        <button class="install" data-copy="./install.sh" aria-label="Copy the install command">
+          <span><span class="prompt">$</span> ./install.sh</span>
+          <span class="copy">copy</span>
+        </button>
+        <a class="btn btn-primary" href="../reference/retrofit.md">Read the retrofit procedure</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="brand" style="font-size:16px"><svg style="width:24px;height:22px" aria-hidden="true"><use href="#mark"/></svg>cargopete style</span>
+    <span class="license">MIT · reference render</span>
+  </div>
+</footer>
+
+<script>
+  // copy-to-clipboard, shared by every install line
+  document.querySelectorAll('.install').forEach((el) => {
+    el.addEventListener('click', async () => {
+      const text = el.dataset.copy ?? el.querySelector('span').textContent.replace(/^\$\s*/, '');
+      try {
+        await navigator.clipboard.writeText(text.trim());
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 1400);
+      } catch { /* clipboard denied: the command is still selectable on the page */ }
+    });
+  });
+
+  // theme toggle, persisted. In a real site the initial read is an inline script
+  // in <head> so the choice applies before first paint.
+  const root = document.documentElement;
+  try { root.dataset.theme = localStorage.getItem('theme') ?? 'dark'; } catch {}
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+</script>
+</body>
+</html>
