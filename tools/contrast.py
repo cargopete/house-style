@@ -67,6 +67,50 @@ DARK_INKS = {
     "--warn":       ("#cdb06a", AA),
 }
 
+# The dashboard dialect (data-palette='brick'): same surfaces and ink, one accent, its own red.
+BRICK_INKS = {
+    "--text":       ("#ece9e3", AAA),
+    "--text-muted": ("#9c978c", AA),
+    "--text-faint": ("#6e6a61", None),
+    "--accent":     ("#d0704f", AA),
+    "--accent-ink": ("#f2cbbb", AA),
+    "--bad":        ("#e36b6b", AA),
+    "--bad-ink":    ("#f5c4c4", AA),
+    "--ok":         ("#86b592", AA),
+    "--warn":       ("#cdb06a", AA),
+}
+
+# Text on a 12% wash of a hue, as tags and badges draw it. The wash sits on whichever surface
+# holds the tag, so each pair is checked over all four.
+BRICK_WASHES = {
+    # ink token        ink        wash hue    required
+    "--accent-ink":  ("#f2cbbb", "#d0704f", AA),
+    "--bad-ink":     ("#f5c4c4", "#e36b6b", AA),
+    "--ok":          ("#86b592", "#86b592", AA),
+    "--warn":        ("#cdb06a", "#cdb06a", AA),
+}
+WASH_ALPHA = 0.12
+
+
+def blend(fg: str, alpha: float, bg: str) -> str:
+    f = [int(fg[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(bg[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(alpha * x + (1 - alpha) * y):02x}" for x, y in zip(f, b))
+
+
+def check_washes(theme: str, surfaces: dict, pairs: dict) -> int:
+    print(f"\n  {theme}")
+    print("  " + "-" * 68)
+    print("  {:<14}".format("ink on wash") + "".join(f"{s.lstrip('-'):>13}" for s in surfaces) + "   verdict")
+    failures = 0
+    for token, (ink, hue, required) in pairs.items():
+        ratios = [ratio(ink, blend(hue, WASH_ALPHA, sv)) for sv in surfaces.values()]
+        ok = min(ratios) >= required
+        failures += not ok
+        print(f"  {token:<14}" + "".join(f"{r:>13.2f}" for r in ratios) + ("   AA" if ok else f"   FAIL (needs {required})"))
+    return failures
+
+
 LIGHT_SURFACES = {
     "--bg":       "#fbfbfa",
     "--bg-elev":  "#ffffff",
@@ -146,6 +190,8 @@ def main() -> int:
     print("\n  cargopete-style - mandated palette")
     failures = check("dark (canonical)", DARK_SURFACES, DARK_INKS)
     failures += check("light (optional inversion)", LIGHT_SURFACES, LIGHT_INKS)
+    failures += check("brick (dashboard dialect, dark only)", DARK_SURFACES, BRICK_INKS)
+    failures += check_washes("brick, text on a 12% wash", DARK_SURFACES, BRICK_WASHES)
 
     print()
     if failures:
