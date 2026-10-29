@@ -1,6 +1,6 @@
 ---
 name: cargopete-style
-description: The cargopete house frontend style, extracted from nuthatch-indexer.com, yetanothertaskrunner.com and redstart-lang.com. A single mandated palette - warm near-black ground, slate-blue and terracotta accents, warm off-white ink - with monospace instrument labels, hairline borders, macro whitespace, a real terminal transcript as the hero artefact, bento grids, and an honest comparison table that admits where the product loses. Use when building or revamping a landing page, docs site, dashboard or developer-tool site in this style, when asked for "the nuthatch style", "the house style", "my style", "cargopete style", or when refactoring an existing site to match them.
+description: The cargopete house frontend style, extracted from nuthatch-indexer.com, yetanothertaskrunner.com and redstart-lang.com. A single mandated palette - warm near-black ground, slate-blue and terracotta accents, warm off-white ink - with monospace instrument labels, hairline borders, macro whitespace, a real terminal transcript as the hero artefact, bento grids, and an honest comparison table that admits where the product loses. Also carries the dashboard dialect from lodestar-dashboard.com: one brick accent, a red kept for bad news, type in rem at a 112.5% root, a sidebar-and-topbar frame, and panels that say when a read failed. Use when building or revamping a landing page, docs site, dashboard or developer-tool site in this style, when asked for "the nuthatch style", "the house style", "my style", "cargopete style", or when refactoring an existing site to match them.
 ---
 
 # cargopete style
@@ -35,6 +35,11 @@ worth knowing, but it is history now rather than a method. The point of a house 
 is that every house in it is recognisably the same house.
 
 What varies between sites is subject, structure, illustration and texture. Not colour.
+
+The one exception is a dashboard. An application someone works in for an hour has numbers
+that fall and checks that fail, and there the pair gets in the way. It has its own mandated
+palette, `data-palette="brick"`, and its own rules in section 13. It is a second palette, not
+a licence for a third.
 
 ### Lineage, so you know what to keep
 
@@ -431,6 +436,10 @@ grammar, then the artefacts, then the copy, then measure.
 
 ## 12. Before you call it done
 
+For a dashboard, use the list at the end of `reference/dashboard.md` instead of the
+landing-specific lines below (the rust floor, the terminal, the comparison table).
+
+
 - [ ] Every colour in the built CSS appears in `reference/tokens.css`.
 - [ ] `grep -c 'var(--rust)'` on the stylesheet returns twelve or more.
 - [ ] `grep -c '—'` across the source returns zero.
@@ -445,3 +454,21 @@ grammar, then the artefacts, then the copy, then measure.
       focusable and operable by Enter.
 - [ ] 540px, 920px and 1440px all hold. No horizontal scroll at 320px.
 - [ ] No word from the banned list survives in the copy.
+
+---
+
+## 13. The dashboard dialect
+
+From lodestar-dashboard.com. For an application someone operates, not the page that explains
+it. Read `reference/dashboard.md` in full before building one; the short form:
+
+- `data-palette="brick"` on `<html>`. One accent, brick `#d0704f`, for every label, link and
+  focus ring. `--bad` `#e36b6b` is the only red and marks only bad news. **Brick labels
+  things. Red reports things.**
+- Text on a wash is the `-ink` tone. The hue on its own wash fails AA.
+- `html { font-size: 112.5% }`, and every size after that in rem, chart ticks included.
+- A fixed sidebar, a blurred topbar, a bottom nav on mobile, and a test that keeps the two
+  navigations listing the same pages.
+- Hairline stat grids, a readout panel in place of the terminal, badges as the only pills.
+- A read that failed says so, and nothing it feeds renders as zero.
+- Dark only.

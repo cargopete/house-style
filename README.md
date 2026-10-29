@@ -11,6 +11,7 @@ It was extracted from four sites that already ship it:
 - [yetanothertaskrunner.com](https://yetanothertaskrunner.com) - the atmospheric texture
 - [redstart-lang.com](https://redstart-lang.com) - the before/after diptych
 - [engine.camp](https://engine.camp) - the scope panel
+- [lodestar-dashboard.com](https://www.lodestar-dashboard.com) - the dashboard dialect
 
 All four began from the `minimalist-ui` protocol in
 [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) and then diverged in the
@@ -31,6 +32,14 @@ slate blue; if a person wrote it, it is the terracotta. Kickers, eyebrows, stat 
 and list markers are the terracotta half, and a page that skips them comes out reading
 as blue on warm grey. There is a grep for it in the checklist.
 
+## The dashboard dialect
+
+A dashboard someone works in for an hour is not a landing page read once, and two of the
+landing rules fail there. `data-palette="brick"` swaps the pair for one brick accent and a
+red that only ever means bad news, and `reference/dashboard.md` carries the rest: type in rem
+at a 112.5% root, the sidebar-and-topbar frame, and panels that say when a read failed rather
+than showing zero. It was taken from Lodestar, and `example/dashboard.html` renders it.
+
 ## Install
 
 ```bash
@@ -49,10 +58,12 @@ existing site into it.
 | `SKILL.md` | The doctrine, the palette, the page grammar, the artefact list, the banned list |
 | `reference/tokens.css` | The mandated palette. Ship it verbatim |
 | `reference/components.md` | Markup and CSS for all seven artefacts |
+| `reference/dashboard.md` | The dashboard dialect: brick palette, rem type, the frame, honest failure |
 | `reference/retrofit.md` | An ordered procedure for bringing an existing site over |
 | `reference/voice.md` | Copy rules, and the banned vocabulary |
 | `tools/contrast.py` | Palette validator. Exits non-zero, drops into CI |
 | `example/index.html` | Reference render: every artefact, one page, no build step |
+| `example/dashboard.html` | Reference render of the dashboard dialect |
 
 ## Validate
 
