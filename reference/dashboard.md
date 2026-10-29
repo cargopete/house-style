@@ -45,8 +45,8 @@ still render, but do not write it, and the landing rule about a dozen uses of it
 
 **Text on a wash is the `-ink` tone.** Brick on its own 12% wash measures 4.10 on `--bg-elev`
 and fails AA; `--accent-ink` measures 9.41. The same holds for red. `tools/contrast.py` checks
-every ink-on-wash pair, which is how this was found: Lodestar's own accent and error badges
-draw the hue on the wash, and both fail.
+every ink-on-wash pair, which is how this was found: Lodestar drew the hue on the wash in
+28 places, badges included, until lodestar#387.
 
 Dark only. There is no validated light inversion of brick, so do not combine
 `data-palette="brick"` with `data-theme="light"`.
@@ -138,8 +138,6 @@ full ink. The skip link is brick with `--bg` text.
 Copy the dialect, not these:
 
 - The nav icons are Heroicons path data, which the banned list rules out.
-- `Badge` draws the accent and the red on their own washes, which fails AA as measured above.
-  It should use `--accent-ink` and `--bad-ink`.
 - Graphy's illustration on `/ask` fills his spines with `#7a5a44`, a colour that is not a token.
 
 ## Before you call it done
